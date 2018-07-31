@@ -17,6 +17,13 @@ class ViewController: UIViewController {
         
     }
     
+    // MARK: - animate text when the app has started
+    override func viewDidAppear(_ animated: Bool) {
+        UIView.animate(withDuration: 1) {
+            self.nameTextField.alpha = 1
+        }
+    }
+    
     @IBAction func greetButtonTapped(_ sender: AnyObject) {
         if let name = nameTextField.text , !name.isEmpty {
             let greeting = "Hello " + name
