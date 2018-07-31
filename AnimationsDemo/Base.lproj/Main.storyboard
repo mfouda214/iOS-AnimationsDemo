@@ -44,6 +44,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="nameTextField" destination="i41-DV-48h" id="Y8C-FH-sA0"/>
+                        <outlet property="textFieldLeadingConstraint" destination="nJo-jC-9dz" id="nQ9-Cl-CfK"/>
+                        <outlet property="textFieldTrailingConstraint" destination="rwl-8c-FzJ" id="dl2-FK-mJ0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

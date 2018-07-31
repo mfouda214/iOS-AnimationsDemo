@@ -10,6 +10,11 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var textFieldLeadingConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var textFieldTrailingConstraint: NSLayoutConstraint!
+    
+    
     @IBOutlet weak var nameTextField: UITextField!
     
     override func viewDidLoad() {
@@ -19,18 +24,40 @@ class ViewController: UIViewController {
     
     // MARK: - animate text when the app has started
     override func viewDidAppear(_ animated: Bool) {
-        UIView.animate(withDuration: 1) {
+        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
             self.nameTextField.alpha = 1
-        }
+        }, completion: { _ in
+            self.nameTextField.becomeFirstResponder()
+        })
     }
     
     @IBAction func greetButtonTapped(_ sender: AnyObject) {
-        if let name = nameTextField.text , !name.isEmpty {
+        if let name = nameTextField.text, !name.isEmpty {
             let greeting = "Hello " + name
             let alertController = UIAlertController(title: nil, message: greeting, preferredStyle: .alert)
             let alertAction = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
             alertController.addAction(alertAction)
             present(alertController, animated: true, completion: nil)
+        } else {
+            UIView.animateKeyframes(withDuration: 0.5, delay: 0, options: [.calculationModeCubic], animations: {
+                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3, animations: {
+                    self.textFieldLeadingConstraint.constant  = 40
+                    self.textFieldTrailingConstraint.constant = 0
+                    self.view.layoutIfNeeded()
+                })
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 0.4, animations: {
+                    self.textFieldLeadingConstraint.constant  = 0
+                    self.textFieldTrailingConstraint.constant = 40
+                    self.view.layoutIfNeeded()
+                })
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.7, relativeDuration: 0.3, animations: {
+                    self.textFieldLeadingConstraint.constant  = 16
+                    self.textFieldTrailingConstraint.constant = 16
+                    self.view.layoutIfNeeded()
+                })
+            }, completion: nil)
         }
     }
 }
