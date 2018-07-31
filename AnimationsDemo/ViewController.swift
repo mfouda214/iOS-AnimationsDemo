@@ -24,11 +24,20 @@ class ViewController: UIViewController {
     
     // MARK: - animate text when the app has started
     override func viewDidAppear(_ animated: Bool) {
-        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
-            self.nameTextField.alpha = 1
+        UIView.animate(withDuration: 2, delay: 1, usingSpringWithDamping: 0.5, initialSpringVelocity: 15, options: [], animations: {
+            self.textFieldLeadingConstraint.constant  = 16
+            self.textFieldTrailingConstraint.constant = 16
+            self.view.layoutIfNeeded()
         }, completion: { _ in
             self.nameTextField.becomeFirstResponder()
         })
+    }
+    
+    // MARK: prepare for spring animation
+    override func viewWillAppear(_ animated: Bool) {
+        textFieldLeadingConstraint.constant = view.bounds.width
+        textFieldTrailingConstraint.constant = -view.bounds.width
+        nameTextField.alpha = 1
     }
     
     @IBAction func greetButtonTapped(_ sender: AnyObject) {
